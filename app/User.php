@@ -36,4 +36,42 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function travelposts()
+    {
+        return $this->hasMany(Travelpost::class);
+    }
+    
+    public function favorites()
+    {
+        return $this->belongsToMany(Travelpost::class,'favorites','user_id','travelpost_id');
+    }
+    
+    public function favorite($travelpostId)
+    {
+        $exist = $this->is_favoriting($travelpostId);
+        
+        if($exist){
+            return false;
+        } else{
+            $this->favorites()->attach($travelpostId);
+            return true;
+        }
+    }
+    
+     public function unfavorite($travelpostId)
+     {
+        $exist = $this->is_favoriting($travelpostId);
+        if($exist){
+            $this->favorites()->detach($travelpostId);
+            return true;
+        } else{
+            return false;
+        }
+     }
+     
+     public function is_favoriting($travelpostId)
+    {
+        return $this->favorites()->where('travelpost_id', $travelpostId)->exists();
+    }
 }
