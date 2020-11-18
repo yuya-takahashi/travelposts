@@ -2,11 +2,9 @@
     <ul class="list-unstyled">
         @foreach ($travelposts as $travelpost)
             <li class="media mb-3">
-                {{-- 投稿の所有者のメールアドレスをもとにGravatarを取得して表示 --}}
                 <img class="mr-2 rounded" src="{{ Gravatar::get($user->email, ['size' => 50]) }}" alt="">
                 <div class="media-body">
                     <div>
-                        {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
                         {!! link_to_route('users.show', $travelpost->user->name, ['user' => $travelpost->user->id]) !!}
                         <span class="text-muted">posted at {{ $travelpost->created_at }}</span>
                     </div>
@@ -17,6 +15,11 @@
                         <p>{{ $travelpost->comment }}</p>
                     </div>
                     <div>
+                        @if (Auth::id() == $travelpost->user_id)
+                            {!! Form::open(['route' => ['travelposts.destroy', $travelpost->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                        @endif
                         @include('user_favorite.favorite_button')
                     </div>
                 </div>

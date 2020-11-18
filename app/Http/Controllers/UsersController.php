@@ -27,7 +27,7 @@ class UsersController extends Controller
             'travelposts' => $travelposts,
         ]);
     }
-    public function favoritings($id)
+    public function favorites($id)
     {
         $user = User::findOrFail($id);
 

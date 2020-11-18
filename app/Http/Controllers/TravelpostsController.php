@@ -14,21 +14,19 @@ class TravelpostsController extends Controller
     public function index()
     {
         $data = [];
-        if (\Auth::check()) { // 認証済みの場合
-            // 認証済みユーザを取得
+        if (\Auth::check()) { 
             $user = \Auth::user();
-            // ユーザの投稿の一覧を作成日時の降順で取得
-            $travelposts = $user->travelposts()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'travelposts' => $travelposts,
-            ];
+            $travelposts = Travelpost::orderBy('created_at', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'travelposts' => $travelposts,
+        ];
         }
-
-        // Welcomeビューでそれらを表示
         return view('welcome', $data);
     }
+
+
+
     
     public function store(Request $request)
     {
@@ -55,12 +53,23 @@ class TravelpostsController extends Controller
             'prefecture_id' => $request->prefecture_id,
             'comment' => $request->comment,
         ]);
-
-        
-        
         return redirect('/');
        
     }
+    
+    public function destroy($id)
+    {
+        $travelpost = \App\Travelpost::findOrFail($id);
+
+        if (\Auth::id() === $travelpost->user_id) {
+            $travelpost->delete();
+        }
+
+        return back();
+    }
+    
+    
+    
     
     public function create()
     {
@@ -75,9 +84,5 @@ class TravelpostsController extends Controller
     
     
     
-    public function disp()
-    {
-        $path = Storage::disk('s3')->url('hoge.jpg');
-        return view('disp', compact('path'));
-    }
 }
+
