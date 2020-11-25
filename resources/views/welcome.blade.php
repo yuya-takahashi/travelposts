@@ -2,8 +2,8 @@
 
 @section('content')
     @if (Auth::check())
-        <div class="col-sm-8">
-            <div class="col-sm-8">
+        <div>
+            <div>
                 {{-- 投稿一覧 --}}
                 @include('travelposts.travelposts')
             </div>

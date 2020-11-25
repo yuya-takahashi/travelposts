@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="row">
-        <aside class="col-sm-4">
+        <div  class="col-sm-4">
             @include('users.card')
-        </aside>
-        <div class="col-sm-8">
+        </div>
+    </div>
+        <div>
             @include('users.navtabs')
             @include('travelposts.travelposts')
         </div>
-    </div>
 @endsection

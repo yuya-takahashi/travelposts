@@ -1,7 +1,9 @@
 @if (count($travelposts) > 0)
-    <ul class="list-unstyled">
+    <div class = "container">
+        <div class = "row">
         @foreach ($travelposts as $travelpost)
-            <li class="media mb-3">
+            <div class = "col-md-4"> 
+            
                 <img class="mr-2 rounded" src="{{ Gravatar::get($user->email, ['size' => 50]) }}" alt="">
                 <div class="media-body">
                     <div>
@@ -9,8 +11,7 @@
                         <span class="text-muted">posted at {{ $travelpost->created_at }}</span>
                     </div>
                     <div>
-                        {{-- 投稿内容 --}}
-                        <img src="{{ Storage::disk('s3')->url($travelpost->file) }}" alt="">
+                        <img src="{{ Storage::disk('s3')->url($travelpost->file) }}" alt="" class="w-100">
                         <p>{{ $travelpost->prefecture()->first()->prefecture }}</p>
                         <p>{{ $travelpost->comment }}</p>
                     </div>
@@ -23,9 +24,15 @@
                         @include('user_favorite.favorite_button')
                     </div>
                 </div>
-            </li>
-        @endforeach
-    </ul>
+            
+            </div>    
+        @endforeach                
+        </div>
+    </div>
     {{-- ページネーションのリンク --}}
     {{ $travelposts->links() }}
 @endif
+
+
+
+
