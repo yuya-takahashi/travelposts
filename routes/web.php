@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('favorites', 'UsersController@favorites')->name('users.favoritings');
     });    
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
-    Route::resource('travelposts', 'TravelpostsController', ['only' => ['create', 'store', 'destroy']]);
+    Route::resource('travelposts', 'TravelpostsController', ['only' => ['index', 'create', 'store', 'destroy']]);
 });
 
 Route::group(['prefix' => 'travelposts/{id}'], function () {
