@@ -6,3 +6,4 @@
         <img class="rounded img-fluid" src="{{ Gravatar::get($user->email, ['size' => 50]) }}" alt="">
     </div>
 </div>
+

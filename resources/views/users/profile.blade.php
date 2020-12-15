@@ -1,0 +1,1 @@
+<img src="{{ asset('storage/profiles/'.$user->profile_image) }}" alt="プロフィール画像">
