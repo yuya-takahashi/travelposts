@@ -6,10 +6,10 @@
             <div class = "offset-md-1 col-md-3">
                 <table>
                     <tr>
-                        <td><img src="{{ asset('storage/profiles/'.$user->profile_image) }}" id="img" class="rounded-circle" width="200", height="200"></td>
+                        <td><img src="{{ Storage::disk('s3')->url($user->profile_image) }}" id="img" class="rounded-circle" width="200", height="200"></td>
                     </tr>    
                     <tr>
-                        <td>{{ Auth::user()->name }}</td>
+                        <td>{{ $user->name }}</td>
                     </tr>
                 </table>
             </div>

@@ -63,24 +63,26 @@ class UsersController extends Controller
     }
 
     public function update($id, Request $request) {
+        //フォームから送信されてきた情報のバリデーションを行う 
         $request->validate([
             'comment' => 'required|max:255',
         ]);
-        
+        //更新対象のユーザーとして、ログイン中のユーザーの情報を取得し変数に保存する 
         $user = Auth::user();
         $form = $request->all();
 
+        //取得したユーザーの変数にformから送信されてきたcommentの情報をセットする
         $user->comment = $request->comment;
         
         $profileImage = $request->file('profile_image');
-        if ($profileImage != null) {
-            $form['profile_image'] = $this->saveProfileImage($profileImage, $id); // return file name
+        if (Auth::id() == $user->id){
+            if ($profileImage != null) {
+                $path = $this->saveProfileImage($profileImage, $id); // return file name
+                $user->profile_image = $path;
+            }
         }
 
-        unset($form['_token']);
-        unset($form['_method']);
-        $user->fill($form)->save();
-    
+        $user->save();
         
         
         return redirect()->route("users.show", ['user' => $user]);
@@ -95,9 +97,10 @@ class UsersController extends Controller
         });
         // save
         $file_name = 'profile_'.$id.'.'.$image->getClientOriginalExtension();
-        $save_path = 'public/profiles/'.$file_name;
-        Storage::put($save_path, (string) $img->encode());
+        $save_path = 'user/' . $file_name;
+        Storage::disk('s3')->put($save_path, (string) $img->encode(), 'public');
+
         // return file name
-        return $file_name;
+        return $save_path;
     }
 }

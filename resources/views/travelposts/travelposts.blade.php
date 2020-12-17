@@ -21,7 +21,7 @@
                                     <p>{{ $travelpost->comment }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <img src="{{ asset('storage/profiles/'.$travelpost->user->profile_image) }}" id="img" class="rounded-circle" width="60", height="60"> 
+                                        <img src="{{ Storage::disk('s3')->url($travelpost->user->profile_image) }}" id="img" class="rounded-circle" width="60", height="60"> 
                                         {!! link_to_route('users.show', $travelpost->user->name, ['user' => $travelpost->user->id]) !!}
                                     </div>
                                     @include('user_favorite.favorite_button')

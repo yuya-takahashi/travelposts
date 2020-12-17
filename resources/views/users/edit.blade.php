@@ -12,7 +12,7 @@
             <label for="profile_image">プロフィール画像</label></br>
           
             <label for="profile_image" class="btn">
-              <img src="{{ asset('storage/profiles/'.$user->profile_image) }}" id="img" class="rounded-circle" width="250", height="250"></br>
+              <img src="{{ Storage::disk('s3')->url($user->profile_image) }}" id="img" class="rounded-circle" width="250", height="250"></br>
               <input id="profile_image" type="file"  name="profile_image" onchange="previewImage(this);">
             </label>
         </div>
