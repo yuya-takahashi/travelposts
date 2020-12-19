@@ -22,7 +22,6 @@
                 {!! Form::submit('ログイン', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
 
-            {{-- ユーザ登録ページへのリンク --}}
             <div class="text-center">
             <p class="mt-2">{!! link_to_route('signup.get', 'アカウントをお持ちでない方はこちら') !!}</p>
             </div>

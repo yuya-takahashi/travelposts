@@ -35,7 +35,7 @@
         @endforeach                
         </div>
     </div>
-    {{-- ページネーションのリンク --}}
+    <div>
     {{ $travelposts->links() }}
     </div>
 @endif

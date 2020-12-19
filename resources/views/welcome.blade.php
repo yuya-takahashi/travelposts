@@ -22,7 +22,6 @@
             <br />
                 
         <div>
-            {{-- 投稿一覧 --}}
             @include('travelposts.travelposts')
         </div>
     @else
